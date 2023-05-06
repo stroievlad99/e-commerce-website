@@ -9,7 +9,7 @@ import { register } from '../actions/userActions'
 
 function RegisterScreen() {
 
-    const [firstName, setFirstName] = ('')
+    const [first_name, setFirstName] = ('')
     const [email, setEmail] = ('')
     const [password, setPassword] = ('')
     const [confirmPassword, setConfirmPassword] = ('')
@@ -30,7 +30,7 @@ function RegisterScreen() {
         if (password !== confirmPassword){
             setMessage('Passwords do not match')
         } else {
-            dispatch(register(firstName, email, password))
+            dispatch(register(first_name, email, password))
         }
         
     }
@@ -58,7 +58,7 @@ function RegisterScreen() {
                             required
                             type = 'name'
                             placeholder='Enter name'
-                            value = {firstName}
+                            value = {first_name}
                             onChange={(e) => setFirstName(e.target.value)}>
                 </Form.Control>
             </Form.Group>

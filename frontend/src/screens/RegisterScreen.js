@@ -9,19 +9,20 @@ import { register } from '../actions/userActions'
 
 function RegisterScreen() {
 
-    const [first_name, setFirstName] = ('')
-    const [email, setEmail] = ('')
-    const [password, setPassword] = ('')
-    const [confirmPassword, setConfirmPassword] = ('')
-    const [message, setMessage] = ('')
+    const [first_name, setFirst_Name] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [message, setMessage] = useState('')
 
     const dispatch = useDispatch()
     const location = useLocation()
     const navigate = useNavigate()
 
-    const redirect = location.state ? Number(location.state) : '/'
+    //const redirect = location.state ? Number(location.state) : '/'
+    const redirect = location.search ? location.search.split('=')[1] : '/'
 
-    const userRegister = useSelector((state) => state.userRegister)
+    const userRegister = useSelector(state => state.userRegister)
     const {error, loading, userInfo } = userRegister
 
     
@@ -59,7 +60,7 @@ function RegisterScreen() {
                             type = 'name'
                             placeholder='Enter name'
                             value = {first_name}
-                            onChange={(e) => setFirstName(e.target.value)}>
+                            onChange={(e) => setFirst_Name(e.target.value)}>
                 </Form.Control>
             </Form.Group>
 

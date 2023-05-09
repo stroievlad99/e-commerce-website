@@ -21,7 +21,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data = super().validate(attrs)
 
         serializer = userSerializerWithToken(self.user).data
-        for k,v in serializer.items():
+        for k, v in serializer.items():
             data[k] = v
 
         return data
@@ -31,7 +31,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer #serializer class = returneaza datele userului
 
 @api_view(['POST'])
-
 def registerUser(request):
     data = request.data
 

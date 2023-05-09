@@ -9,15 +9,15 @@ import { login } from '../actions/userActions'
 
 function LoginScreen() {
 
-    const [email, setEmail] = ('')
-    const [password, setPassword] = ('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const dispatch = useDispatch()
     const location = useLocation()
     const navigate = useNavigate()
 
-    const redirect = location.state ? Number(location.state) : '/'
-    //const redirect = location.search ? location.search.split('=')[1] : '/'
+    //const redirect = location.state ? Number(location.state) : '/'
+    const redirect = location.search ? location.search.split('=')[1] : '/'
     const userLogin = useSelector((state) => state.userLogin)
     const {error, loading, userInfo } = userLogin
 

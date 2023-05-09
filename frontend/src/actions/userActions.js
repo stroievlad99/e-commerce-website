@@ -45,8 +45,8 @@ export const login = (email, password) => async(dispatch) => {
     } catch(error){
         dispatch({
             type: USER_LOGIN_FAIL,
-            payload: error.response && error.response.data.message //.message
-                     ? error.response.data.message //.message
+            payload: error.response && error.response.data.detail
+                     ? error.response.data.detail
                      : error.message
         })
 
@@ -92,8 +92,8 @@ export const register = (first_name, email,  password) => async(dispatch) => {
     } catch(error){
         dispatch({
             type: USER_REGISTER_FAIL,
-            payload: error.response && error.response.data.message
-                     ? error.response.data.message
+            payload: error.response && error.response.data.detail
+                     ? error.response.data.detail
                      : error.message
         })
 

@@ -48,15 +48,23 @@ def registerUser(request):
         message = {'detail': 'User with this email already exists'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST) #daca email-ul deja e folosit, returneaza eroare
 
-#@api_view(['POST'])
-#def login(request):
-#    email = request.data.get('email')
-#   password = request.data.get('password')
-#    try:
-#        user = User.objects.get(email=email, password=password)
-#        return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
-#    except User.DoesNotExist:
-#        return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request):
+    user = request.user
+    serializier = userSerializerWithToken(user, many = False) #many=False, vrem sa ne returneze un singur user, nu o lista
+    
+    data = request.data
+
+    user.first_name = data['name']
+    user.username = data['email']
+    user.email = data['email']
+    if data['password'] != '' :
+        user.password = make_password(data['password'])
+
+    user.save() #salvam noile update-uri facute de user
+
+    return Response(serializier.data)  
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

@@ -47,7 +47,7 @@ function ProfileScreen() {
 
     useEffect(() => {
         if(!userInfo) {
-            navigate('/login') 
+            navigate(`/login`) 
         } else {
             if(!user || !user.name || success){
                 dispatch({ type:USER_UPDATE_PROFILE_RESET })

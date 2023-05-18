@@ -4,33 +4,45 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link } from 'react-router-dom'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
-//import { savePaymentMethod } from '../actions/cartActions'
+import { createOrder } from '../actions/orderActions'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
 
 
 function PlaceOrderScreen() {
 
-    const cart = useSelector(state => state.cart)
-   // const { paymentMethod } = cart
-
-   const placeOrder = () => {
-    console.log('Place order')
-   }
+    const orderCreate = useSelector(state => state.orderCreate)
+    const {order, error, success} = orderCreate
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    //const [placeOrderMethod, setPlaceOrderMethod] = useState('PayPal')
+    const cart = useSelector(state => state.cart)
 
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     cart.shippingPrice = (cart.itemsPrice >= 150 ? 0 : 20).toFixed(2)
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice)).toFixed(2)
 
+    if(!cart.paymentMethod){
+        navigate(`/payment/`)
+    }
 
-    const submitHandler = (e) => { //event as a parameter
-        e.preventDefault() 
-        //dispatch(savePaymentMethod(paymentMethod))
+    useEffect (() => {
+        if(success){
+            navigate(`/order/${order._id}`)
+            dispatch({ type: ORDER_CREATE_RESET })
+        }
+    }, [success, navigate])
+
+    const placeOrder = () => { 
+        dispatch(createOrder({
+            orderItems: cart.cartItems,
+            shippingAddress: cart.shippingAddress,
+            paymentMethod: cart.paymentMethod,
+            itemsPrice: cart.itemsPrice,
+            shippingPrice: cart.shippingPrice,
+            totalPrice: cart.totalPrice,
+        }))
         console.log('Success!')
-        //navigate(`/placeorder`) 
 
     }
 
@@ -123,6 +135,10 @@ function PlaceOrderScreen() {
                                 <Col>Total:</Col>
                                 <Col>${cart.totalPrice}</Col>
                             </Row>
+                        </ListGroup.Item>
+
+                        <ListGroup.Item>
+                            {error && <Message variant='danger'>{error}</Message>}
                         </ListGroup.Item>
 
                         <ListGroup.Item>

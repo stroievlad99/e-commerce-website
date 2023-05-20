@@ -5,8 +5,9 @@ import { useNavigate, Link, useParams } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { PayPalButton } from 'react-paypal-button-v2'
-
+import { ORDER_PAY_RESET } from '../constants/orderConstants'
 
 function OrderScreen() {
 
@@ -41,6 +42,7 @@ function OrderScreen() {
    
     useEffect (() => {
         if( !order || order._id !== Number(orderId) || successPay ){
+            dispatch({type: ORDER_PAY_RESET})
             dispatch(getOrderDetails(orderId))
         } else if (!order.isPaid) {
             addPayPalScript()
@@ -81,7 +83,7 @@ function OrderScreen() {
                         </p>
                         
                         {order.isDelivered ? (
-                            <Message variant='success'>Delivered on {order.deliveredAt}</Message>
+                            <Message variant='success'>Delivered on {order.deliveredAt.substring(0,10)}</Message>
                         ) : (
                             <Message variant='warning'>Not delivered</Message>
                         )}
@@ -94,7 +96,7 @@ function OrderScreen() {
                         {order.paymentMethod}
                         </p>
                         {order.isPaid ? (
-                            <Message variant='success'>Paid on {order.paidAt}</Message>
+                            <Message variant='success'>Paid on {order.paidAt.substring(0,10)}</Message>
                         ) : (
                             <Message variant='warning'>Not paid</Message>
                         )}
@@ -161,10 +163,10 @@ function OrderScreen() {
                         </ListGroup.Item>
                         
                         {!order.isPaid && (
-                            <ListGroup.Item>
+                        <ListGroup.Item>
                                 {loadingPay && <Loader/>}
 
-                                {!sdkReady ? (
+                                {sdkReady ? (
                                     <Loader/>
                                 ) : (
                                     <PayPalButton
@@ -174,14 +176,13 @@ function OrderScreen() {
                                 )}
 
                             </ListGroup.Item>
-
                         )}
 
                     </ListGroup>
                 </Card>
-
             </Col>
         </Row>
+
     </div>
 )
 }

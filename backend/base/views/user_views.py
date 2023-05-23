@@ -78,4 +78,40 @@ def getUserProfile(request):
 def getUsers(request): #accesul la toti userii din interfata Admin
     users = User.objects.all()
     serializier = UserSerializer(users, many = True) 
-    return Response(serializier.data)    
+    return Response(serializier.data)
+
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteUser(request, pk):
+    userForDeletion = User.objects.get(id = pk)
+    userForDeletion.delete()
+    return Response('User was deleted!')  
+    
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getUserById(request, pk): #edit user in admin panel
+    user = User.objects.get(id=pk)
+    serializier = UserSerializer(user, many = False) 
+    return Response(serializier.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUser(request, pk):
+    user = User.objects.get(id=pk)
+   
+    data = request.data
+    user.first_name = data['name']
+    user.username = data['email']
+    user.email = data['email']
+    user.is_staff = data['isAdmin']
+
+    user.save() 
+    
+    serializier = UserSerializer(user, many = False) 
+    return Response(serializier.data) #returnam rezultatul catre frontend serializat 
+
+   

@@ -35,12 +35,27 @@ const logoutHandler = () => {
                       </Nav.Link>
 
                       <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
-
                     </NavDropdown>
                   )  : (
                     <Nav.Link as={Link} to='/login'><i className='fas fa-user'></i>Login</Nav.Link>
                   )              
                   }
+
+                  {userInfo && userInfo.isAdmin && (
+                    <NavDropdown title = 'Admin' id = 'admin_menu'>
+                      <Nav.Link as={Link} to='/admin/userlist'>
+                        <NavDropdown.Item>Users</NavDropdown.Item>
+                      </Nav.Link>
+
+                      <Nav.Link as={Link} to='/admin/productlist'>
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                      </Nav.Link>
+
+                      <Nav.Link as={Link} to='/admin/orderlist'>
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </Nav.Link>
+                  </NavDropdown>
+                  )}
 
                 </Nav>
               </Navbar.Collapse>

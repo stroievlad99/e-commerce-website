@@ -53,7 +53,7 @@ function ProfileScreen() {
         if(!userInfo) {
             navigate(`/login`) 
         } else {
-            if(!user || !user.name || success){
+            if(!user || !user.name || success || userInfo._id !== user._id){
                 dispatch({ type:USER_UPDATE_PROFILE_RESET })
                 dispatch(getUserDetails('profile'))
                 dispatch(listMyOrders())
@@ -145,7 +145,7 @@ function ProfileScreen() {
                     ) : errorOrders ? (
                         <Message variant='danger'>{errorOrders}</Message>
                     ) : (
-                        <Table striped responsive className='table-sm'> {/*avem coloane cu randuri de culori diferite + table-sm o tablea mai mica ca si size */}
+                        <Table striped responsive hover className='table-sm'> {/*avem coloane cu randuri de culori diferite + table-sm o tablea mai mica ca si size */}
                             <thead>
                                 <tr>
                                     <th>ID</th>

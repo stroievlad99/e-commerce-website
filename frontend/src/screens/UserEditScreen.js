@@ -17,8 +17,9 @@ function UserEditScreen() {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const match = useParams()
-    const userId = match.id
+
+    const {id} = useParams()
+    const userId = id  
 
     const userDetails = useSelector(state => state.userDetails)
     const {error, loading, user } = userDetails
@@ -30,7 +31,7 @@ function UserEditScreen() {
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(updateUser({_id: user._id, first_name, email, isAdmin}))
-     
+
     }
 
     useEffect(() => {

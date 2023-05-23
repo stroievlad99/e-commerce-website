@@ -24,13 +24,13 @@ const reducer = combineReducers({
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
     userUpdateProfile:userUpdateProfileReducer,
+    userList : userListReducer,
+    userDelete: userDeleteReducer,
+    userUpdate: userUpdateReducer,
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
     orderListMy: orderListMyReducer,
-    userList : userListReducer,
-    userDelete: userDeleteReducer,
-    userUpdate: userUpdateReducer,
 });
  
 const cartItemsFromStorage = localStorage.getItem("cartItems")

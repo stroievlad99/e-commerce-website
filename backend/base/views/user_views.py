@@ -51,7 +51,7 @@ def registerUser(request):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateUserProfile(request):
-    user = request.user
+    user = request.user #pentru a avea nevoie sa vedem ce user face update
     serializier = userSerializerWithToken(user, many = False) #many=False, vrem sa ne returneze un singur user, nu o lista
     
     data = request.data

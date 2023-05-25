@@ -29,7 +29,7 @@ function UserListScreen() {
       navigate(`/login`)
     }
     
-  } , [dispatch, navigate, successDeleteUser])
+  } , [dispatch, navigate, successDeleteUser, userInfo])
 
   const deleteHandler = (id) => {
     if(window.confirm('Are you sure you want to delete this user?')) { //creeaza acel pop up in susul ferestrei pentru a te intreba daca esti sigur sa stergi userul ales

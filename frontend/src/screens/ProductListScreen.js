@@ -22,13 +22,6 @@ function ProductListScreen() {
   const productDelete = useSelector(state => state.productDelete)
   const {loading: loadingDelete, error:errorDelete, success: successDeleteProduct} = productDelete
 
-  //const [name, setName] = useState('')
-  //const [price, setprice] = useState('')
-  //const [brand, setBrand] = useState('')
-  //const [countInStock, setCountInStock] = useState('')
-  //const [category, setCategory] = useState('')
-  //const [description, setDescription] = useState('')
-
   const productCreate = useSelector(state => state.productCreate)
   const {error: errorCreate, loading: loadingCreate, success: successCreate, product: createdProduct } = productCreate
 

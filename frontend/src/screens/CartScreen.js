@@ -1,26 +1,44 @@
-import React, { useEffect } from "react";
-import { Link, useSearchParams, useParams, useNavigate } from "react-router-dom";
-import { Row, Col, ListGroup, Image, Form, Button, Card, ListGroupItem} from "react-bootstrap";
-import Message from "../components/Message";
-import { addToCart, removeFromCart } from "../actions/cartActions";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react"
+import { Link, useSearchParams, useParams, useNavigate } from "react-router-dom"
+import { Row, Col, ListGroup, Image, Form, Button, Card, ListGroupItem} from "react-bootstrap"
+import Message from "../components/Message"
+import { addToCart, removeFromCart } from "../actions/cartActions"
+import { useDispatch, useSelector } from "react-redux"
+import { CART_CLEAR_ITEMS } from '../constants/cartConstants'
+import { USER_LOGOUT } from '../constants/userConstants'
 
 
 
 function CartScreen() {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const qty = Number(searchParams.get("qty"));
-  const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+
+  
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { id } = useParams();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const qty = Number(searchParams.get("qty"));
 
   useEffect(() => {
-      if (id) {
-          dispatch(addToCart(id, qty));
-      }
+
+    if (id) {
+        dispatch(addToCart(id, qty));        
+    }
+
+   // if(!userInfo && cartItems){
+   //     dispatch({type: CART_CLEAR_ITEMS})
+   // }
+
   }, [dispatch, id, qty]);
 
 

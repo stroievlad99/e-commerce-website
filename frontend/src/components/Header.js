@@ -35,6 +35,7 @@ const logoutHandler = () => {
                       </Nav.Link>
 
                       <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+
                     </NavDropdown>
                   )  : (
                     <Nav.Link as={Link} to='/login'><i className='fas fa-user'></i>Login</Nav.Link>

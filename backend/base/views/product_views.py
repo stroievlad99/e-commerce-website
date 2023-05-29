@@ -71,3 +71,16 @@ def deleteProduct(request, pk):
     productForDeletion = Product.objects.get(_id = pk)
     productForDeletion.delete()
     return Response('Product deleted!')  
+
+@api_view(['POST'])
+#@permission_classes([IsAdminUser])
+def uploadImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    product = Product.objects.get(_id=product_id)
+
+    product.image = request.FILES.get('image') #noua imagine va fi setata produsului dupa care adaugam imaginea in static files
+    product.save()
+
+    return Response('Image was uploaded!')

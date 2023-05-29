@@ -1,4 +1,5 @@
 import React, {useState, useEffect}  from 'react'
+import  axios from 'axios'
 import {  Link, useParams, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import Loader from '../components/Loader'
@@ -20,6 +21,8 @@ function ProductEditScreen() {
     const {id} = useParams()
     const productId = id 
 
+    const [selectedFile, setSelectedFile] = useState(null);
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -30,11 +33,41 @@ function ProductEditScreen() {
     const [countInStock, setCountInStock] = useState(0)
     const [category, setCategory] = useState('')
     const [description, setDescription] = useState('')
+    const [uploading, setUploading] = useState(false)
 
     const submitHandler = (e) => { //trimite product data catre actiune noastra
         e.preventDefault()
         dispatch(updateProduct({_id: productId, name, price, image, brand, countInStock, category, description}))
 
+    }
+
+    const uploadImageHandler = async (e) => { //folosim async pt ca ca avem un POST request, deci folosim axios
+        console.log('File is uploading') //Dacă aveți nevoie să efectuați operații asincrone în interiorul funcției, cum ar fi trimiterea fișierului la un server și așteptarea unui răspuns, folosirea async vă permite să utilizați cu ușurință await pentru a aștepta finalizarea operațiilor asincrone.
+        const file = e.target.files[0]
+        const formData = new FormData()
+
+        formData.append('image', file)
+        formData.append('product_id', productId)
+
+        setUploading(true)
+
+        try{
+            const config = {
+                headers: {
+                    'Content-type': 'multipart/form-data'
+                }
+            }
+
+            const {data} = await axios.post('/api/products/upload/',
+            formData,
+            config)
+
+            setImage(data)
+            setUploading(false)
+
+        }catch(error) {
+            setUploading(false)
+        }
     }
 
     useEffect(() => {
@@ -112,6 +145,18 @@ function ProductEditScreen() {
                                     value = {image}
                                     onChange={(e) => setImage(e.target.value)}>
                         </Form.Control>
+
+                        <Form.Control  className='mb-3 btn btn-primary'
+                                type = 'file'
+                                label='Choose image'
+                                custom 
+                                onChange={uploadImageHandler}
+
+                        >
+                            
+                        </Form.Control>
+
+                        {uploading && <Loader/>}
                     </Form.Group>
 
                     <Form.Group controlId = 'brand'>

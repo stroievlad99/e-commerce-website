@@ -11,6 +11,18 @@ import { PRODUCT_UPDATE_RESET, PRODUCT_UPDATE_SUCCESS } from '../constants/produ
 
 function ProductEditScreen() {
 
+    const productDetails = useSelector(state => state.productDetails)
+    const {error, loading, product } = productDetails
+
+    const productUpdate = useSelector(state => state.productUpdate)
+    const {error: errorUpdate, loading: loadingUpdate, success: successUpdate} = productUpdate
+
+    const {id} = useParams()
+    const productId = id 
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const [name, setName] = useState('')
     const [price, setPrice] = useState(0)
     const [image, setImage] = useState('')
@@ -19,19 +31,6 @@ function ProductEditScreen() {
     const [category, setCategory] = useState('')
     const [description, setDescription] = useState('')
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-
-    const {id} = useParams()
-    const productId = id  
-
-    const productDetails = useSelector(state => state.productDetails)
-    const {error, loading, product } = productDetails
-
-    const productUpdate = useSelector(state => state.productUpdate)
-    const {error: errorUpdate, loading: loadingUpdate, success: successUpdate} = productUpdate
-
-    
     const submitHandler = (e) => { //trimite product data catre actiune noastra
         e.preventDefault()
         dispatch(updateProduct({_id: productId, name, price, image, brand, countInStock, category, description}))
@@ -41,9 +40,9 @@ function ProductEditScreen() {
     useEffect(() => {
 
         if(successUpdate) { 
-            dispatch({ type: PRODUCT_UPDATE_SUCCESS })
-            navigate(`/admin/productist`)
             dispatch({ type: PRODUCT_UPDATE_RESET })
+            navigate(`/admin/productlist`)
+           
         } else {
 
             if(!product.name || product._id !== Number(productId)){
@@ -54,8 +53,8 @@ function ProductEditScreen() {
                 setImage(product.image)
                 setBrand(product.brand)
                 setCountInStock(product.countInStock)
-                setCategory(product.setCategory)
-                setDescription(product.setDescription)
+                setCategory(product.category)
+                setDescription(product.description)
             }
         }
         

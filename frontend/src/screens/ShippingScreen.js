@@ -8,27 +8,18 @@ import { saveShippingAddress  } from '../actions/cartActions'
 
 function ShippingScreen() {
 
-    {/*const [address, setAddress] = useState(shippingAddress.address)
-    const [city, setCity] = useState(shippingAddress.city)
-    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
-    const [county, setCounty] = useState(shippingAddress.county)
-    const [country, setCountry] = useState(shippingAddress.country)
-    const [phoneNumber, setPhoneNumber] = useState(shippingAddress.phoneNumber)*/}
-
-// va trebui sa gasesc o metoda pentru a putea ramane salvate datele de shipping chiar daca parasim pagina de /shipping si revenim la ea 
-
-    const [address, setAddress] = useState('')
-    const [city, setCity] = useState('')
-    const [postalCode, setPostalCode] = useState('')
-    const [county, setCounty] = useState('')
-    const [country, setCountry] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
-  
     const cart = useSelector(state => state.cart)
     const { shippingAddress } = cart
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const [address, setAddress] = useState(shippingAddress.address)
+    const [city, setCity] = useState(shippingAddress.city)
+    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
+    const [county, setCounty] = useState(shippingAddress.county)
+    const [country, setCountry] = useState(shippingAddress.country)
+    const [phoneNumber, setPhoneNumber] = useState(shippingAddress.phoneNumber)
 
     const submitHandler = (e) => {
         e.preventDefault() 

@@ -96,15 +96,18 @@ function ProductListScreen() {
                 <td>{product.brand}</td>
 
                 <td>
-                  <Link to = {`/admin/product/${product._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
-                      <i className='fas fa-edit'> Edit</i>
-                    </Button>
-                    </Link>
-
-                    <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(product._id)}>
-                      <i className='fas fa-trash'></i>
-                    </Button>
+                <div className="text-center">
+                  <Link to = {`/admin/product/${product._id}/edit`}> 
+                      <Button variant='light' className='btn-sm'>
+                        <i className='fas fa-edit'> Edit</i>
+                      </Button>
+                  </Link>
+              
+                  <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(product._id)}>
+                    <i className='fas fa-trash'></i>
+                  </Button>
+                </div>
+                    
                 </td>
               </tr>
             ))}

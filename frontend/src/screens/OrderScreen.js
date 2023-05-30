@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, Link, useParams } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getOrderDetails, payOrder } from '../actions/orderActions'
+import { getOrderDetails, payOrder, deliverOrder } from '../actions/orderActions'
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { PayPalButton } from 'react-paypal-button-v2'
-import { ORDER_PAY_RESET } from '../constants/orderConstants'
+import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constants/orderConstants'
 
 function OrderScreen() {
 
@@ -18,11 +18,18 @@ function OrderScreen() {
     const orderId = match.id
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [sdkReady, setSdkReady] = useState(false) // software development kit-ul nu este available pentru paypal pana nu-l incarcam (functia d emai jos addPayPalScript())
 
     const orderPay = useSelector(state => state.orderPay)
     const {loading: loadingPay, success: successPay} = orderPay
+
+    const orderDeliver = useSelector(state => state.orderDeliver)
+    const {loading: loadingDeliver, success: successDeliver} = orderDeliver
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
     
 
     if(!loading && !error){
@@ -41,18 +48,28 @@ function OrderScreen() {
     }
    
     useEffect (() => {
-        if( !order || order._id !== Number(orderId) || successPay ){
+
+        if(!userInfo.isAdmin){
+            navigate(`/login`)
+        }
+
+        if( !order || order._id !== Number(orderId) || successPay || successDeliver){
             dispatch({type: ORDER_PAY_RESET})
+            dispatch({type: ORDER_DELIVER_RESET})
             dispatch(getOrderDetails(orderId))
         } else if (!order.isPaid) {
             addPayPalScript()
         } else {
             setSdkReady(true)
         }
-    }, [dispatch, order, orderId, successPay])
+    }, [dispatch, order, orderId, successPay, successDeliver, userInfo])
 
     const successPaymentHandler = (paymentResult) => { 
         dispatch(payOrder(orderId, paymentResult)) //payOrder trimit un api call si face update la baza de date
+    }
+
+    const successDeliverHandler = () => { 
+        dispatch(deliverOrder(order)) 
     }
 
   return loading ? (
@@ -179,6 +196,19 @@ function OrderScreen() {
                         )}
 
                     </ListGroup>
+                    {loadingDeliver && <Loader/>}
+                    {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                        <div className='text-center'>
+                            <ListGroup.Item>
+                                <Button
+                                        type='button'
+                                        className='btn btn-block custom-btn'
+                                        onClick={successDeliverHandler}>
+                                    Mark as deliver
+                                </Button>
+                            </ListGroup.Item>
+                        </div>
+                    )}
                 </Card>
             </Col>
         </Row>

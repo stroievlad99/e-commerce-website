@@ -43,7 +43,7 @@ function ProductEditScreen() {
 
     const uploadImageHandler = async (e) => { //folosim async pt ca ca avem un POST request, deci folosim axios
         console.log('File is uploading') //Dacă aveți nevoie să efectuați operații asincrone în interiorul funcției, cum ar fi trimiterea fișierului la un server și așteptarea unui răspuns, folosirea async vă permite să utilizați cu ușurință await pentru a aștepta finalizarea operațiilor asincrone.
-        const file = e.target.files[0]
+        const file = e.target.files[0] // extragerea primului fișier din evenimentul e și crearea unui obiect FormData.
         const formData = new FormData()
 
         formData.append('image', file)
@@ -54,7 +54,7 @@ function ProductEditScreen() {
         try{
             const config = {
                 headers: {
-                    'Content-type': 'multipart/form-data'
+                    'Content-type': 'multipart/form-data' //Obiectul FormData este utilizat pentru a construi o reprezentare a datelor formularului în formatul multipart/form-data, care este utilizat adesea pentru încărcarea de fișiere.
                 }
             }
 

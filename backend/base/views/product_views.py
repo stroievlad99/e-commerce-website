@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
@@ -11,7 +13,13 @@ from rest_framework import status #error status message
 
 @api_view(['GET'])
 def getProducts(request):
-    products = Product.objects.all()
+
+    query = request.query_params.get('term')
+    if query is None:
+        query = ''
+
+
+    products = Product.objects.filter(name__icontains = query) #daca unul din termenii din searchbarch contine (nu e case sensitive) query-ul returneaza atunci produsele respective
     serializier = ProductSerializer(products, many = True) #many=True, deoarece vrem sa serializam mai multe obiecte
     return Response(serializier.data)
 

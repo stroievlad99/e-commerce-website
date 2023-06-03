@@ -34,6 +34,42 @@ h3{
     margin-top: 15px;
 }
 
+form.d-flex {
+    display: flex;
+    align-items: center;
+  }
+
+form.d-flex input[type=text] {
+
+    padding: 10px;
+    height:10%;
+  }
+
+form.d-flex button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: hsl(206, 7%, 42%);
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+
+    height:41px;
+  }
+  
+  form.d-flex button:hover {
+    background: rgb(34, 36, 37);
+  }
+  
+  form.d-flex::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+
   
   
   

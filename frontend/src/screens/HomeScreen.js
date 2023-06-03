@@ -6,6 +6,7 @@ import Product from '../components/Product'
 import { listProducts } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import Paginate from '../components/Paginate'
 
 function HomeScreen() {
 
@@ -14,10 +15,9 @@ function HomeScreen() {
   const navigate = useNavigate()
 
   const productList = useSelector(state => state.productList)
-  const { loading, products, error} = productList
+  const { loading, products, error, page, pages} = productList
 
   let term = location.search //valoarea lui term va fi ?cheie=valoare
-  console.log(term)
 
   useEffect(() => {
       dispatch(listProducts(term))
@@ -31,15 +31,18 @@ function HomeScreen() {
       {loading ? <Loader />
         : error ? <Message variant='danger'>{error}</Message>
           :
-          <Row>
-          {
-              products.map(product => (
-                  <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                      <Product product={product}/>
-                  </Col>
-              ))
-          }
-        </Row>
+          <div>
+            <Row>
+            {
+                products.map(product => (
+                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                        <Product product={product}/>
+                    </Col>
+                ))
+            }
+          </Row>
+          <Paginate page={page} pages={pages} term={term}/>
+        </div>
       }
 
     </div>

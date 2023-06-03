@@ -12,7 +12,7 @@ function SearchBox() {
     const submitHandler = (e) => {
         e.preventDefault()
         if(term) {
-            navigate(`/?term=${term}`)
+            navigate(`/?term=${term}&page=1`)
         } else {
             navigate(location.pathname)
         }

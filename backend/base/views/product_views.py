@@ -18,10 +18,27 @@ def getProducts(request):
     if query is None:
         query = ''
 
-
     products = Product.objects.filter(name__icontains = query) #daca unul din termenii din searchbarch contine (nu e case sensitive) query-ul returneaza atunci produsele respective
+
+    page = request.query_params.get('page')
+    paginator = Paginator(products,8) #returneaza 2 produse/pagina?
+
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1) 
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages) #returneaza ultima pagina
+
+    if page == None:
+        page = 1
+
+    page = int(page)
+
     serializier = ProductSerializer(products, many = True) #many=True, deoarece vrem sa serializam mai multe obiecte
-    return Response(serializier.data)
+    return Response({'products': serializier.data, 
+                     'page':page, 
+                     'pages': paginator.num_pages})
 
 @api_view(['GET'])
 def getProduct(request, pk):

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User # Django authentication system
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Product, Order, OrderItem, ShippingAddress
+from .models import Product, Order, OrderItem, ShippingAddress, Review
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -36,11 +36,23 @@ class userSerializerWithToken(UserSerializer): #folosim aceasta clasa pentru a s
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)
         return str(token.access_token)
+    
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = '__all__' #returneaza tot
 
 class ProductSerializer(serializers.ModelSerializer):
+    reviews = serializers.SerializerMethodField(read_only = True)
     class Meta:
         model = Product
         fields = '__all__' #returneaza tot
+
+    def get_reviews(self, obj):
+        reviews = obj.review_set.all()
+        serializer = ReviewSerializer(reviews, many=True)
+        return serializer.data
+    
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
     class Meta:

@@ -49,9 +49,9 @@ function OrderScreen() {
    
     useEffect (() => {
 
-        if(!userInfo.isAdmin){
-            navigate(`/login`)
-        }
+        //if(!userInfo.isAdmin){
+        //    navigate(`/login`)
+        //}
 
         if( !order || order._id !== Number(orderId) || successPay || successDeliver){
             dispatch({type: ORDER_PAY_RESET})
@@ -204,7 +204,7 @@ function OrderScreen() {
                                         type='button'
                                         className='btn btn-block custom-btn'
                                         onClick={successDeliverHandler}>
-                                    Mark as deliver
+                                    Mark as delivered
                                 </Button>
                             </ListGroup.Item>
                         </div>

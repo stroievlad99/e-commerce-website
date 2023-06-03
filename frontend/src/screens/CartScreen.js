@@ -87,11 +87,11 @@ function CartScreen() {
 
                                             {
                                                 //fix partea asta creeaza un array [0,1,2] de ex (adica 3 iteme in stock)
-                                                  [...Array(item.countInStock).keys()].map((currentItem) => (
+                                                  [...Array(item.countInStock).keys()].map((currentItem) => ( //creează un array cu lungimea item.countInStock și apoi obține cheile acestui array utilizând funcția keys(). Aceasta va genera un array de numere consecutive de la 0 până la item.countInStock - 1.
                                                     //avem nevoie de key={CurrentItem + 1} deoarece mapam printr-un item
                                                     <option key={currentItem+1} value={currentItem+1}> 
                                                           {currentItem + 1}
-                                                    </option>
+                                                    </option>//Astfel, acest cod generează o listă de opțiuni numerotate de la 1 până la item.countInStock, pe care le puteți utiliza pentru a permite utilizatorului să aleagă o valoare dintr-un meniu dropdown în cadrul unui formular.
 
                                                   ))
                                             }

@@ -137,14 +137,14 @@ function PlaceOrderScreen() {
                             </Row>
                         </ListGroup.Item>
 
-                        <ListGroup.Item>
-                            {error && <Message variant='danger'>{error}</Message>}
-                        </ListGroup.Item>
+                        
+                        {error && <Message variant='danger'>{error}</Message>}
+                        
 
                         <ListGroup.Item>
                             <Button
                                 type = 'button'
-                                className='btn-block'
+                                className='btn-block custom-btn'
                                 disbled={cart.cartItems === 0}
                                 onClick={placeOrder}>
                                 Place order

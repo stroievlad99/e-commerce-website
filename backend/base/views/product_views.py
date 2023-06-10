@@ -41,6 +41,12 @@ def getProducts(request):
                      'pages': paginator.num_pages})
 
 @api_view(['GET'])
+def getTopProducts(request):
+    products = Product.objects.filter(rating__gte=3).order_by('-rating')[0:5] #gte reprezint grater than or equal
+    serializier = ProductSerializer(products, many = True)
+    return Response(serializier.data)
+
+@api_view(['GET'])
 def getProduct(request, pk):
     product = Product.objects.get(_id = pk)
     serializier = ProductSerializer(product, many = False) #many=False, deoarece vrem sa serializam un singur produs

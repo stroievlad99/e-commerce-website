@@ -20,7 +20,7 @@ function OrderScreen() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const [sdkReady, setSdkReady] = useState(false) // software development kit-ul nu este available pentru paypal pana nu-l incarcam (functia d emai jos addPayPalScript())
+    const [sdkReady, setSdkReady] = useState(false) // software development kit-ul nu este available pentru paypal pana nu-l incarcam (functia de mai jos addPayPalScript())
 
     const orderPay = useSelector(state => state.orderPay)
     const {loading: loadingPay, success: successPay} = orderPay
@@ -37,9 +37,9 @@ function OrderScreen() {
     }
 
     const addPayPalScript = () => { // aceasta functie va fi triggeruite in interiorul useEffect
-        const script = document.createElement('script')
-        script.type = 'text'
-        script.src = 'https://www.paypal.com/sdk/js?client-id=Ab3o2VmTtCGLfgxG0-nFztXaPW8DM1CRweVf-WpVeCb71JrtT78M3_SU9OSdcqMvq71mNa6UYIy4Cbdm'
+        const script = document.createElement('script') // se creeaza un element <script> dinamic
+        script.type = 'text' 
+        script.src = 'https://www.paypal.com/sdk/js?client-id=AbTbVXZUUBfy0EKYP3wbwlk8TR1Ahl_CDZOdqN4l2fK8iGEOZSRvkJcUbHRJ3lmTjJRl0CD1IhMvrmwV'
         script.async = true
         script.onload = () => { //functia va fi folosita abia cand scriptul se incarca complet si devine disponibil pentru utilizare
             setSdkReady(true)

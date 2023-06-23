@@ -17,9 +17,6 @@ function CartScreen() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-
-  
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

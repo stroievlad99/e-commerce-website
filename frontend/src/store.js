@@ -71,11 +71,11 @@ export const initialState =
 };
  
  
-const middleware = [thunk];
+const middleware = [thunk]; // Middleware-ul thunk permite gestionarea acțiunilor asincrone în Redux
  
 const store = configureStore({
     reducer: reducer,
-    preloadedState: initialState,
+    preloadedState: initialState, //Starea inițială a magazinului
     middleware: middleware,
 });
  

@@ -11,7 +11,7 @@ function Product({ product }) { //accesam direct produsul
       </Link>
 
     <Card.Body>
-      <Link to={`/product/${product._id}`}>
+      <Link to={`/product/${product._id}`} className="link-no-underline"> 
           <Card.Title as='div'> 
               <strong>{product.name}</strong>
           </Card.Title>
@@ -24,7 +24,7 @@ function Product({ product }) { //accesam direct produsul
           </Card.Text>
 
           <Card.Text as='h3'>
-                ${product.price}  {/*aici se poate pune orice moneda*/}
+                ${product.price}  
           </Card.Text>
     </Card.Body>
     

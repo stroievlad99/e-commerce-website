@@ -21,10 +21,10 @@ def getProducts(request):
     products = Product.objects.filter(name__icontains = query) #daca unul din termenii din searchbarch contine (nu e case sensitive) query-ul returneaza atunci produsele respective
 
     page = request.query_params.get('page')
-    paginator = Paginator(products,8) #returneaza 2 produse/pagina?
+    paginator = Paginator(products,8) 
 
     try:
-        products = paginator.page(page)
+        products = paginator.page(page) #paginator.page(3) = returnam obietele de pe pagina 3
     except PageNotAnInteger:
         products = paginator.page(1) 
     except EmptyPage:

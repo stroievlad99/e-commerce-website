@@ -5,25 +5,21 @@ import {  Link, useRevalidator } from 'react-router-dom'
 import SearchBox from './SearchBox'
 import { logout } from '../actions/userActions'
 
-
-
 function Header() {
 
 const userLogin = useSelector((state) => state.userLogin)
 const { userInfo } = userLogin
-
 const dispatch = useDispatch()
 
 const logoutHandler = () => {
   dispatch(logout())
 }
 
-
   return (
         <header>
           <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
             <Container>
-              <Navbar.Brand as={Link} to='/'>ShopWithVlad</Navbar.Brand>
+              <Navbar.Brand as={Link} to='/'>VladElectronicStore</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox/>

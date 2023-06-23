@@ -18,7 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get__id(self, obj):
         return obj.id
-
+ 
     def get_name(self, obj):
         name = obj.first_name
         if name == '':
@@ -65,7 +65,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = '__all__'        
 
 class OrderSerializer(serializers.ModelSerializer):
-    #trebuie sa imbricam toate datele devi vom avea dupa cum urmeaza:
+    #trebuie sa imbricam toate datele 
     orderItems = serializers.SerializerMethodField(read_only = True)
     shippingAddress = serializers.SerializerMethodField(read_only = True)
     user = serializers.SerializerMethodField(read_only = True)
@@ -75,7 +75,7 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = '__all__'   
 
     def get_orderItems(self,obj):
-        items = obj.orderitem_set.all()
+        items = obj.orderitem_set.all() #obține toate obiectele OrderItem asociate obiectului Order
         serializer = OrderItemSerializer(items, many = True)
         return serializer.data
     

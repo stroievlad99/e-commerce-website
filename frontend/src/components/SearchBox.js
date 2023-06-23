@@ -14,7 +14,7 @@ function SearchBox() {
         if(term) {
             navigate(`/?term=${term}&page=1`)
         } else {
-            navigate(location.pathname)
+            navigate(location.pathname) // ruta default unde nu afiseaza niciun produs
         }
     }
 

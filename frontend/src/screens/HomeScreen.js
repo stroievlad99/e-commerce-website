@@ -19,6 +19,7 @@ function HomeScreen() {
   const { loading, products, error, page, pages} = productList
 
   let term = location.search //valoarea lui term va fi ?cheie=valoare
+  console.log(term)
 
   useEffect(() => {
       dispatch(listProducts(term))

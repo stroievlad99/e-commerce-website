@@ -18,7 +18,7 @@ export const cartReducer = (state = {cartItems:[], shippingAddress:{}} ,  action
 
             if (existItem) {
                 return{
-                    ...state,
+                    ...state, // asigura pastrarea celorlalte proprietati ale starii initiale
                     cartItems:state.cartItems.map(x => x.product === existItem.product ? item : x) // vrem sa mapping prin state.array, vrem sa gasim daca exista deja un item      
                 }
             } else {

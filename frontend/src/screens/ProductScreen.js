@@ -130,9 +130,7 @@ function ProductScreen() {
                                                     >
 
                                                         {
-                                                            //fix partea asta creeaza un array [0,1,2] de ex (adica 3 iteme in stock)
                                                             [...Array(product.countInStock).keys()].map((currentItem) => (
-                                                                //avem nevoie de key={CurrentItem + 1} deoarece mapam printr-un item
                                                                 <option key={currentItem+1} value={currentItem+1}> 
                                                                     {currentItem + 1}
                                                                 </option>

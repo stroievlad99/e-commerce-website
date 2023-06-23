@@ -18,9 +18,9 @@ from rest_framework import status #error status message
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
-        data = super().validate(attrs)
+        data = super().validate(attrs) #se apelează metoda validate() a clasei părinte (TokenObtainPairSerializer) și se returnează rezultatul acestei metode. Aceasta permite să se mențină funcționalitatea de validare a tokenului din clasa părinte, iar apoi se adaugă informații suplimentare la răspunsul de autentificare (token) generat de serializerul de bază (TokenObtainPairSerializer)
 
-        serializer = userSerializerWithToken(self.user).data
+        serializer = userSerializerWithToken(self.user).data 
         for k, v in serializer.items():
             data[k] = v
 
@@ -39,7 +39,7 @@ def registerUser(request):
             first_name = data['name'],
             username = data['email'],
             email = data['email'],
-            password = make_password(data['password'])
+            password = make_password(data['password']) #make_password cripteaza parola
         )
 
         serializer = userSerializerWithToken(user, many=False)

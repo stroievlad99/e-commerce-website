@@ -34,7 +34,7 @@ function ProfileScreen() {
 
     
     const submitHandler = (e) => {
-        e.preventDefault() 
+        e.preventDefault() //daca parolele de ex nu se matchuiesc, fara aceasta functie s-ar fi dat submit la formular si nu ar mai fi aparut mesajul de eroare.
         if (password !== confirmPassword){
             setMessage('Passwords do not match')
         } else {

@@ -58,7 +58,7 @@ function Rating( {value, text, color} ) {
             </i>
       </span>
 
-      <span>{text && text} </span> {/*daca text (numReviews) exista atunci adauga textul, daca nu exista nu folosi valoarea si lasa empty space */}
+      <span>{text && text} </span> {/*adaugam numarul de review-uri produselor*/}
     </div>
   )
 }

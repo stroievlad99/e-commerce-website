@@ -32,10 +32,6 @@ function CartScreen() {
         dispatch(addToCart(id, qty));        
     }
 
-   // if(!userInfo && cartItems){
-   //     dispatch({type: CART_CLEAR_ITEMS})
-   // }
-
   }, [dispatch, id, qty]);
 
 

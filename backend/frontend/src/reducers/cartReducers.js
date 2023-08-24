@@ -12,7 +12,7 @@ import {CART_ADD_ITEM
 export const cartReducer = (state = {cartItems:[], shippingAddress:{}} ,  action) => {
     switch(action.type){
         case CART_ADD_ITEM:
-            // payload va fi produsul
+       
             const item = action.payload
             const existItem = state.cartItems.find(x => x.product === item.product)
 
@@ -43,8 +43,8 @@ export const cartReducer = (state = {cartItems:[], shippingAddress:{}} ,  action
 
         case CART_SAVE_PAYMENT_METHOD:
             return {
-                ...state, // state-ul original
-                paymentMethod: action.payload //luam paymentMethod si setam valoarea
+                ...state,
+                paymentMethod: action.payload 
             }
 
         case CART_CLEAR_ITEMS:

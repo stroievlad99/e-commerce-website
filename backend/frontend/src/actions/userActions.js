@@ -37,6 +37,8 @@ import {USER_LOGIN_REQUEST
 
 import { ORDER_LIST_RESET } from '../constants/orderConstants'
 
+import { CART_CLEAR_ITEMS } from '../constants/cartConstants'
+
 export const login = (email, password) => async(dispatch) => {
     try {
         dispatch({ 
@@ -44,18 +46,16 @@ export const login = (email, password) => async(dispatch) => {
         })
 
         const config = {
-            headers: {
-                'Content-type' : 'application/json'
+            headers: { 
+                'Content-type' : 'application/json'  //Obiectul "config" este folosit pentru a specifica antetul cererii HTTP, care specifică tipul de conținut trimis în corpul cererii. În acest caz, antetul cererii specifică că se trimite un obiect JSON.
             }
         }
-        //Obiectul "config" este folosit pentru a specifica antetul cererii HTTP, care specifică tipul de conținut trimis în corpul cererii. În acest caz, antetul cererii specifică că se trimite un obiect JSON.
-
-        // {data} este utilizată pentru a extrage răspunsul de la server
+                                                              
         const { data } = await axios.post('/api/users/login/'
         ,{'username': email, 'password': password}
         ,config
         )
-        //face o cerere de tip POST către ruta specificată ("/api/users/login/"). În corpul cererii, sunt incluse obiectele "username" și "password", trimise ca obiect JSON.
+
 
         dispatch({
             type: USER_LOGIN_SUCCESS,
@@ -64,10 +64,6 @@ export const login = (email, password) => async(dispatch) => {
 
         localStorage.setItem('userInfo', JSON.stringify(data))
 
-   //     dispatch({
-   //         type: USER_LOGOUT,
-   //         payload: data
-   //     })
 
     } catch(error){
         dispatch({
@@ -86,6 +82,7 @@ export const logout = () => (dispatch) => {
     dispatch({type:USER_DETAILS_RESET})
     dispatch({type: ORDER_LIST_RESET })
     dispatch({type: USER_LIST_RESET })
+    dispatch({type: CART_CLEAR_ITEMS })
 }
 
 
@@ -143,13 +140,13 @@ export const getUserDetails = (id) => async(dispatch, getState) => {
 
         const config = {
             headers: {
-                'Content-type' : 'application/json', //adaugam token-ul in config, in headers (postaman)
+                'Content-type' : 'application/json', //adaugam token-ul in config, in headers (postman)
                 Authorization: `Bearer ${userInfo.token}`
 
             }
         }
 
-        const { data } = await axios.get( //folosim get request pt a trimite informatiile de mai sus catre view-ul nostru user_views care la randul sau va returna userul
+        const { data } = await axios.get( 
             `/api/users/${id}/`
             ,config
         )
@@ -178,7 +175,7 @@ export const updateUserProfile = (user) => async(dispatch, getState) => { //avem
         })
 
         const {
-            userLogin: { userInfo }, //pt a face update la user avem nevoie ca userul sa fie logged in
+            userLogin: { userInfo }, 
         } = getState()
 
         const config = {

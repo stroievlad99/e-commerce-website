@@ -23,7 +23,7 @@ const logoutHandler = () => {
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <SearchBox/>
-                <Nav className="mr-auto">
+                <Nav className="ml-auto">
                   <Nav.Link as={Link} to='/cart/shipping' ><i className='fas fa-shopping-cart'></i>Cart</Nav.Link>
 
                   {userInfo ? (

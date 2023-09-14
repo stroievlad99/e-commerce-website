@@ -29,7 +29,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          cd .\e-commerce-website\backend\
+          cd backend
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: python-app
-          path: .\e-commerce-website\backend\
+          path: ./backend/
 
   deploy:
     runs-on: ubuntu-latest
